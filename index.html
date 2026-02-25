@@ -1,95 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farah Journal - International News</title>
+<title>Farah Journal - Admin Dashboard</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    margin:0;
-    background:#f4f4f4;
-}
-header {
-    background:#111;
-    color:white;
-    padding:20px;
-    text-align:center;
-}
-nav {
-    background:#c40000;
-    padding:10px;
-    text-align:center;
-}
-nav a {
-    color:white;
-    margin:0 15px;
-    text-decoration:none;
-    font-weight:bold;
-}
-.container {
-    width:90%;
-    margin:auto;
-    margin-top:20px;
-}
-.news {
-    background:white;
-    padding:15px;
-    margin-bottom:20px;
-    box-shadow:0 0 5px rgba(0,0,0,0.1);
-}
-.news img {
-    width:100%;
-}
-footer {
-    background:#111;
-    color:white;
-    text-align:center;
-    padding:15px;
-}
+body{font-family:Arial;margin:0;background:#f4f4f4}
+header{background:#111;color:white;padding:15px;text-align:center}
+.container{display:flex}
+.sidebar{width:250px;background:#1e1e2f;color:white;padding:20px;min-height:100vh}
+.sidebar h3{margin-top:0}
+.content{flex:1;padding:20px}
+input, textarea{width:100%;padding:10px;margin-bottom:10px}
+button{padding:10px;background:#d00000;color:white;border:none;cursor:pointer}
+button:hover{background:#a00000}
+.news-card{background:white;padding:15px;margin-bottom:15px;box-shadow:0 0 5px rgba(0,0,0,0.1)}
+.delete-btn{background:black;margin-top:10px}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🌍 Farah Journal</h1>
-<p>International News & Global Updates</p>
+<h1>🌍 Farah Journal Admin</h1>
 </header>
-
-<nav>
-<a href="#">Home</a>
-<a href="#">World</a>
-<a href="#">Politics</a>
-<a href="#">Business</a>
-<a href="#">Technology</a>
-</nav>
 
 <div class="container">
 
-<div class="news">
-<img src="https://source.unsplash.com/800x400/?world" alt="">
-<h2>Global Leaders Meet for Climate Summit</h2>
-<p>World leaders gathered today to discuss climate change solutions and global cooperation strategies.</p>
+<div class="sidebar">
+<h3>Add New Article</h3>
+<input type="text" id="title" placeholder="News Title">
+<textarea id="content" rows="5" placeholder="News Content"></textarea>
+<button onclick="addNews()">Publish</button>
 </div>
 
-<div class="news">
-<img src="https://source.unsplash.com/800x400/?economy" alt="">
-<h2>International Markets Show Growth</h2>
-<p>Stock markets across Europe, Asia and America reported strong performance this week.</p>
-</div>
-
-<div class="news">
-<img src="https://source.unsplash.com/800x400/?technology" alt="">
-<h2>AI Technology Expands Worldwide</h2>
-<p>Artificial Intelligence continues to transform industries and global innovation.</p>
+<div class="content">
+<h2>Latest News</h2>
+<div id="newsContainer"></div>
 </div>
 
 </div>
 
-<footer>
-<p>© 2026 Farah Journal | All Rights Reserved</p>
-</footer>
+<script>
+let newsList = [
+{title:"Global Climate Summit 2026", content:"World leaders discuss climate change solutions."},
+{title:"International Markets Rise", content:"Global stock markets show strong growth."}
+];
+
+function displayNews(){
+let container = document.getElementById("newsContainer");
+container.innerHTML="";
+newsList.forEach((news,index)=>{
+container.innerHTML += `
+<div class="news-card">
+<h3>${news.title}</h3>
+<p>${news.content}</p>
+<button class="delete-btn" onclick="deleteNews(${index})">Delete</button>
+</div>
+`;
+});
+}
+
+function addNews(){
+let title = document.getElementById("title").value;
+let content = document.getElementById("content").value;
+
+if(title && content){
+newsList.unshift({title,content});
+displayNews();
+document.getElementById("title").value="";
+document.getElementById("content").value="";
+}
+}
+
+function deleteNews(index){
+newsList.splice(index,1);
+displayNews();
+}
+
+displayNews();
+</script>
 
 </body>
 </html>
