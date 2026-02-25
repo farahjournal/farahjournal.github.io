@@ -1,84 +1,190 @@
 <!DOCTYPE html>
-<html>
+<html lang="so">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farah Journal - Admin Dashboard</title>
-<style>
-body{font-family:Arial;margin:0;background:#f4f4f4}
-header{background:#111;color:white;padding:15px;text-align:center}
-.container{display:flex}
-.sidebar{width:250px;background:#1e1e2f;color:white;padding:20px;min-height:100vh}
-.sidebar h3{margin-top:0}
-.content{flex:1;padding:20px}
-input, textarea{width:100%;padding:10px;margin-bottom:10px}
-button{padding:10px;background:#d00000;color:white;border:none;cursor:pointer}
-button:hover{background:#a00000}
-.news-card{background:white;padding:15px;margin-bottom:15px;box-shadow:0 0 5px rgba(0,0,0,0.1)}
-.delete-btn{background:black;margin-top:10px}
-</style>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farah Journal | Wararka Caalamka</title>
+    <style>
+        :root {
+            --primary: #c00;
+            --dark: #1a1a1a;
+            --light: #f9f9f9;
+            --gray: #666;
+        }
 
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; background: var(--light); color: #333; }
+        
+        /* Navigation Bar */
+        nav { background: white; border-bottom: 3px solid var(--primary); padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .logo { font-size: 28px; font-weight: bold; color: var(--primary); text-decoration: none; text-transform: uppercase; letter-spacing: 2px; }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: var(--dark); font-weight: 600; font-size: 14px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hero Section / Breaking News */
+        .hero { background: white; padding: 20px 5%; border-bottom: 1px solid #ddd; display: flex; gap: 20px; align-items: center; }
+        .breaking-tag { background: var(--primary); color: white; padding: 5px 10px; font-size: 12px; font-weight: bold; }
+        
+        /* Main Layout */
+        .main-container { display: flex; flex-wrap: wrap; padding: 20px 5%; gap: 30px; }
+        .news-section { flex: 3; min-width: 300px; }
+        .sidebar { flex: 1; min-width: 250px; background: white; padding: 20px; border-radius: 8px; height: fit-content; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+
+        /* Admin Form Style */
+        .admin-box { background: #eee; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 5px solid var(--primary); }
+        .admin-box h2 { margin-top: 0; font-size: 18px; }
+        input, textarea, select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
+
+        /* News Cards Grid */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; position: relative; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card-content { padding: 15px; }
+        .category-tag { background: rgba(204, 0, 0, 0.1); color: var(--primary); font-size: 11px; padding: 3px 8px; border-radius: 3px; font-weight: bold; text-transform: uppercase; }
+        .card h3 { margin: 10px 0; font-size: 18px; line-height: 1.3; }
+        .card p { color: var(--gray); font-size: 14px; line-height: 1.5; }
+        .delete-btn { background: #333; color: white; padding: 5px; font-size: 10px; margin-top: 10px; width: auto; }
+
+        footer { background: var(--dark); color: white; padding: 40px 5%; text-align: center; margin-top: 50px; }
+    </style>
+</head>
 <body>
 
-<header>
-<h1>🌍 Farah Journal Admin</h1>
-</header>
+<nav>
+    <a href="#" class="logo">FARAH<span>JOURNAL</span></a>
+    <div class="nav-links">
+        <a href="#" onclick="filterNews('Dhammaan')">Wararka Tageera</a>
+        <a href="#" onclick="filterNews('Ciyaaraha')">Ciyaaraha</a>
+        <a href="#" onclick="filterNews('Tiknoolajiyadda')">Tiknoolajiyadda</a>
+        <a href="#" onclick="filterNews('Ganacsiga')">Ganacsiga</a>
+    </div>
+</nav>
 
-<div class="container">
-
-<div class="sidebar">
-<h3>Add New Article</h3>
-<input type="text" id="title" placeholder="News Title">
-<textarea id="content" rows="5" placeholder="News Content"></textarea>
-<button onclick="addNews()">Publish</button>
+<div class="hero">
+    <span class="breaking-tag">DEG DEG</span>
+    <marquee id="breakingNewsScroll">Ku soo dhawaada Farah Journal - Wararkii ugu dambeeyay ee caalamka iyo gudaha.</marquee>
 </div>
 
-<div class="content">
-<h2>Latest News</h2>
-<div id="newsContainer"></div>
-</div>
+<div class="main-container">
+    
+    <div class="news-section">
+        <h2 id="sectionTitle">Wararkii Ugu Dambeeyay</h2>
+        <hr>
+        <div id="newsContainer" class="news-grid">
+            </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="admin-box">
+            <h2>✍️ Soo Geli War Cusub</h2>
+            <input type="text" id="title" placeholder="Cinwaanka Warka">
+            <textarea id="content" rows="4" placeholder="Nuxurka warka oo kooban..."></textarea>
+            <select id="category">
+                <option value="Ciyaaraha">Ciyaaraha</option>
+                <option value="Tiknoolajiyadda">Tiknoolajiyadda</option>
+                <option value="Ganacsiga">Ganacsiga</option>
+                <option value="Caalamka">Caalamka</option>
+            </select>
+            <label style="font-size: 12px;">Sawirka Warka:</label>
+            <input type="file" id="imageInput" accept="image/*">
+            <button onclick="addNews()">DAABAC WARKA</button>
+        </div>
+
+        <div class="trending">
+            <h3>Trending Topics</h3>
+            <p>#Somalia2026</p>
+            <p>#TechInAfrica</p>
+            <p>#GlobalEconomy</p>
+        </div>
+    </div>
 
 </div>
+
+<footer>
+    <p>&copy; 2026 Farah Journal. Xuquuqda oo dhan waa dhowran tahay.</p>
+</footer>
 
 <script>
-let newsList = [
-{title:"Global Climate Summit 2026", content:"World leaders discuss climate change solutions."},
-{title:"International Markets Rise", content:"Global stock markets show strong growth."}
-];
+    // Xogta laga soo qaadayo LocalStorage
+    let newsList = JSON.parse(localStorage.getItem("farahGlobalNews")) || [
+        {title: "Dhismaha Wadada Weyn ee Muqdisho", content: "Mashruuc cusub oo laga bilaabay caasimadda...", category: "Caalamka", image: "https://via.placeholder.com/400x200"},
+        {title: "Real Madrid oo Guul Gaartay", content: "Ciyaartoyda Madrid ayaa soo bandhigay ciyaar aad u heer saraysa...", category: "Ciyaaraha", image: "https://via.placeholder.com/400x200"}
+    ];
 
-function displayNews(){
-let container = document.getElementById("newsContainer");
-container.innerHTML="";
-newsList.forEach((news,index)=>{
-container.innerHTML += `
-<div class="news-card">
-<h3>${news.title}</h3>
-<p>${news.content}</p>
-<button class="delete-btn" onclick="deleteNews(${index})">Delete</button>
-</div>
-`;
-});
-}
+    function displayNews(filter = 'Dhammaan') {
+        const container = document.getElementById("newsContainer");
+        const sectionTitle = document.getElementById("sectionTitle");
+        container.innerHTML = "";
+        
+        sectionTitle.innerText = filter === 'Dhammaan' ? "Wararkii Ugu Dambeeyay" : `Wararka: ${filter}`;
 
-function addNews(){
-let title = document.getElementById("title").value;
-let content = document.getElementById("content").value;
+        const filteredList = filter === 'Dhammaan' ? newsList : newsList.filter(n => n.category === filter);
 
-if(title && content){
-newsList.unshift({title,content});
-displayNews();
-document.getElementById("title").value="";
-document.getElementById("content").value="";
-}
-}
+        filteredList.forEach((news, index) => {
+            container.innerHTML += `
+                <div class="card">
+                    <img src="${news.image || 'https://via.placeholder.com/400x200'}" alt="img">
+                    <div class="card-content">
+                        <span class="category-tag">${news.category}</span>
+                        <h3>${news.title}</h3>
+                        <p>${news.content.substring(0, 100)}...</p>
+                        <button class="delete-btn" onclick="deleteNews(${index})">Tirtir</button>
+                    </div>
+                </div>
+            `;
+        });
 
-function deleteNews(index){
-newsList.splice(index,1);
-displayNews();
-}
+        localStorage.setItem("farahGlobalNews", JSON.stringify(newsList));
+        updateBreakingNews();
+    }
 
-displayNews();
+    function addNews() {
+        const title = document.getElementById("title").value;
+        const content = document.getElementById("content").value;
+        const category = document.getElementById("category").value;
+        const imageFile = document.getElementById("imageInput").files[0];
+
+        if (!title || !content) return alert("Fadlan buuxi meelaha bannaan!");
+
+        if (imageFile) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                newsList.unshift({ title, content, category, image: e.target.result });
+                resetForm();
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            newsList.unshift({ title, content, category, image: null });
+            resetForm();
+        }
+    }
+
+    function resetForm() {
+        displayNews();
+        document.getElementById("title").value = "";
+        document.getElementById("content").value = "";
+        document.getElementById("imageInput").value = "";
+    }
+
+    function deleteNews(index) {
+        if(confirm("Ma hubtaa?")) {
+            newsList.splice(index, 1);
+            displayNews();
+        }
+    }
+
+    function filterNews(cat) {
+        displayNews(cat);
+    }
+
+    function updateBreakingNews() {
+        if(newsList.length > 0) {
+            document.getElementById("breakingNewsScroll").innerText = "WAR CUSUB: " + newsList[0].title + " | " + newsList[0].content;
+        }
+    }
+
+    displayNews();
 </script>
 
 </body>
