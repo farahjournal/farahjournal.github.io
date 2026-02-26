@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FARAH JOURNAL | Global News & Political Analysis</title>
+    <title>FARAH JOURNAL | World News & Analysis</title>
     <style>
-        :root { --primary: #c00; --dark: #111; --bg: #f8f9fa; }
-        body { font-family: 'Times New Roman', Times, serif; margin: 0; background: var(--bg); color: #222; }
+        :root { --primary: #c00; --dark: #111; --bg: #f8f9fa; --footer: #1a1a1a; }
+        body { font-family: 'Times New Roman', Times, serif; margin: 0; background: var(--bg); color: #222; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Header & Nav */
         header { background: #fff; padding: 25px 5%; text-align: center; border-bottom: 5px solid var(--primary); }
         .logo { font-size: 45px; font-weight: 900; color: var(--dark); text-decoration: none; letter-spacing: -2px; text-transform: uppercase; }
         .logo span { color: var(--primary); }
         nav { background: var(--dark); padding: 12px 5%; display: flex; justify-content: center; gap: 30px; position: sticky; top: 0; z-index: 1000; }
         nav a { color: #fff; text-decoration: none; font-family: sans-serif; font-weight: bold; font-size: 13px; text-transform: uppercase; }
+        
+        /* Ticker */
         .ticker-container { background: #fff; padding: 10px 5%; border-bottom: 1px solid #ddd; overflow: hidden; display: flex; align-items: center; }
         .ticker-label { background: var(--primary); color: #fff; padding: 5px 12px; font-weight: bold; font-size: 12px; margin-right: 15px; flex-shrink: 0; }
-        .ticker-content { white-space: nowrap; animation: ticker-move 30s linear infinite; font-family: sans-serif; }
+        .ticker-content { white-space: nowrap; animation: ticker-move 40s linear infinite; font-family: sans-serif; }
         @keyframes ticker-move { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        .main-wrapper { max-width: 1300px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 350px; gap: 40px; }
-        .featured-box { background: #fff; margin-bottom: 40px; border-bottom: 4px solid var(--primary); }
+
+        /* Main Content */
+        .main-wrapper { max-width: 1300px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 350px; gap: 40px; flex: 1; }
+        .featured-box { background: #fff; margin-bottom: 40px; border-bottom: 4px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .featured-box img { width: 100%; height: 450px; object-fit: cover; }
         .featured-text { padding: 30px; }
         .featured-text h1 { font-size: 42px; margin: 15px 0; line-height: 1.1; }
@@ -25,10 +31,22 @@
         .card { background: #fff; border: 1px solid #eee; }
         .card img { width: 100%; height: 200px; object-fit: cover; }
         .card-body { padding: 20px; }
+        
+        /* Admin Sidebar */
         .sidebar { background: #fff; border: 1px solid #ddd; padding: 20px; height: fit-content; position: sticky; top: 80px; }
         .admin-zone { background: #f1f1f1; padding: 15px; border: 1px dashed #999; margin-bottom: 30px; }
-        input, textarea, select { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; }
+        input, textarea, select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; box-sizing: border-box; }
         .post-btn { background: var(--primary); color: #fff; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; }
+        
+        /* Footer */
+        footer { background: var(--footer); color: #bbb; padding: 50px 5% 20px; margin-top: 50px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1300px; margin: 0 auto; }
+        .footer-section h3 { color: #fff; border-left: 3px solid var(--primary); padding-left: 10px; margin-bottom: 20px; }
+        .footer-section p, .footer-section a { font-family: sans-serif; font-size: 14px; line-height: 1.6; color: #bbb; text-decoration: none; }
+        .footer-section a:hover { color: var(--primary); }
+        .footer-bottom { text-align: center; padding-top: 40px; margin-top: 40px; border-top: 1px solid #333; font-size: 12px; }
+
+        @media (max-width: 950px) { .main-wrapper { grid-template-columns: 1fr; } .news-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -42,13 +60,12 @@
     <a href="#" onclick="render('All')">Home</a>
     <a href="#" onclick="render('Politics')">Politics</a>
     <a href="#" onclick="render('Economy')">Economy</a>
-    <a href="#" onclick="render('Analysis')">Analysis</a>
     <a href="#" onclick="render('Global')">Global</a>
 </nav>
 
 <div class="ticker-container">
     <div class="ticker-label">BREAKING NEWS</div>
-    <div class="ticker-content" id="ticker">Loading global headlines...</div>
+    <div class="ticker-content" id="ticker">Loading latest headlines from Hargeisa and around the world...</div>
 </div>
 
 <div class="main-wrapper">
@@ -65,53 +82,128 @@
             <textarea id="con" rows="3" placeholder="Content..."></textarea>
             <select id="cat">
                 <option value="Politics">Politics</option>
-                <option value="Analysis">Analysis</option>
+                <option value="Economy">Economy</option>
                 <option value="Global">Global News</option>
             </select>
-            <input type="text" id="img" placeholder="Image URL">
-            <button class="post-btn" onclick="publish()">PUBLISH</button>
+            <label style="font-size: 12px;">Upload Image:</label>
+            <input type="file" id="imgFile" accept="image/*">
+            <button class="post-btn" onclick="publish()">PUBLISH ARTICLE</button>
         </div>
         <h3>Analysis & Op-Ed</h3>
-        <div id="analysis-list"></div>
+        <p style="font-size: 14px; color: #666; line-height: 1.6;">Stay informed with the latest geopolitical trends and expert analysis on world events.</p>
     </aside>
 </div>
 
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>About Farah Journal</h3>
+            <p>Farah Journal is your leading source for independent news, political analysis, and global economic trends. Based in Hargeisa, we bring you the world from a unique perspective.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p><strong>Email:</strong> <a href="mailto:farahjournal2@gmail.com">farahjournal2@gmail.com</a></p>
+            <p><strong>Location:</strong> Hargeisa, Somaliland</p>
+            <p><strong>Support:</strong> Available 24/7 for media inquiries.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <p><a href="#" onclick="render('Politics')">Political Analysis</a></p>
+            <p><a href="#" onclick="render('Economy')">Economic News</a></p>
+            <p><a href="#" onclick="render('Global')">Global Affairs</a></p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Farah Journal. All Rights Reserved. Based in Hargeisa, Somaliland.
+    </div>
+</footer>
+
 <script>
     const KEY = "Farah2026";
-    let db = JSON.parse(localStorage.getItem("fj_data")) || [
-        {title: "The Future of Geopolitics in 2026", content: "Analysis on the shifting alliances in the global north...", category: "Analysis", image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80"},
-        {title: "New Trade Routes Established", content: "Economic experts discuss the new maritime corridors...", category: "Economy", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"}
+    
+    // Sample News Data
+    const samples = [
+        {
+            title: "Development Projects Flourish in Hargeisa",
+            content: "Local authorities in Hargeisa have announced new infrastructure initiatives aimed at boosting urban mobility and economic growth in the capital of Somaliland.",
+            category: "Global",
+            image: "https://images.unsplash.com/photo-1590273466070-40c466b4432d?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+            title: "Global Markets Stabilize Amidst Trade Talks",
+            content: "International markets showed signs of recovery as major economies agreed on a preliminary framework for sustainable trade practices.",
+            category: "Economy",
+            image: "https://images.unsplash.com/photo-1611974714024-4607a5076da7?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+            title: "The Future of Diplomacy in the Horn of Africa",
+            content: "Political analysts discuss the shifting diplomatic landscape and how regional cooperation is becoming a priority for 2026.",
+            category: "Politics",
+            image: "https://images.unsplash.com/photo-1521791136364-798a7bc0d262?auto=format&fit=crop&w=800&q=80"
+        }
     ];
+
+    let db = JSON.parse(localStorage.getItem("fj_data_final")) || samples;
 
     function render(f = 'All') {
         const hero = document.getElementById("hero");
         const grid = document.getElementById("grid");
         const ticker = document.getElementById("ticker");
-        
         const filtered = f === 'All' ? db : db.filter(n => n.category === f);
+        
         if(filtered.length > 0) {
             const top = filtered[0];
-            hero.innerHTML = `<div class="featured-box"><img src="${top.image}"><div class="featured-text"><span>${top.category}</span><h1>${top.title}</h1><p>${top.content.substring(0, 200)}...</p></div></div>`;
-            grid.innerHTML = filtered.slice(1).map((n, i) => `<div class="card"><img src="${n.image}"><div class="card-body"><span>${n.category}</span><h3>${n.title}</h3><button onclick="remove(${i+1})" style="color:red;border:none;background:none;cursor:pointer">Delete</button></div></div>`).join("");
+            hero.innerHTML = `
+                <div class="featured-box">
+                    <img src="${top.image}">
+                    <div class="featured-text">
+                        <span style="color:red; font-weight:bold; font-size:12px;">${top.category}</span>
+                        <h1>${top.title}</h1>
+                        <p>${top.content.substring(0, 250)}...</p>
+                    </div>
+                </div>`;
+            
+            grid.innerHTML = filtered.slice(1).map((n, i) => `
+                <div class="card">
+                    <img src="${n.image}">
+                    <div class="card-body">
+                        <span style="color:red; font-size:12px; font-weight:bold;">${n.category}</span>
+                        <h3 style="font-size:18px; margin:10px 0;">${n.title}</h3>
+                        <button onclick="remove(${db.indexOf(n)})" style="color:red;border:none;background:none;cursor:pointer;font-size:10px;">[DELETE]</button>
+                    </div>
+                </div>`).join("");
         }
-        ticker.innerText = "LATEST: " + db.map(n => n.title.toUpperCase()).join(" • ");
-        localStorage.setItem("fj_data", JSON.stringify(db));
+        
+        ticker.innerText = "LATEST NEWS: " + db.map(n => n.title.toUpperCase()).join(" • ");
+        localStorage.setItem("fj_data_final", JSON.stringify(db));
     }
 
     function publish() {
-        if(document.getElementById("pass").value !== KEY) return alert("Wrong Password");
-        db.unshift({
-            title: document.getElementById("tit").value,
-            content: document.getElementById("con").value,
-            category: document.getElementById("cat").value,
-            image: document.getElementById("img").value || "https://via.placeholder.com/800x400"
-        });
-        render();
+        const pass = document.getElementById("pass").value;
+        const fileInput = document.getElementById("imgFile");
+        const title = document.getElementById("tit").value;
+        const content = document.getElementById("con").value;
+        const category = document.getElementById("cat").value;
+
+        if(pass !== KEY) return alert("Wrong Password!");
+        
+        const reader = new FileReader();
+        if(fileInput.files[0]) {
+            reader.readAsDataURL(fileInput.files[0]);
+            reader.onload = function() {
+                db.unshift({ title, content, category, image: reader.result });
+                render();
+            };
+        } else {
+            db.unshift({ title, content, category, image: "https://via.placeholder.com/800x400" });
+            render();
+        }
     }
 
     function remove(i) {
-        if(prompt("Password:") === KEY) { db.splice(i, 1); render(); }
+        if(prompt("Enter Admin Password:") === KEY) { db.splice(i, 1); render(); }
     }
+
     render();
 </script>
 </body>
