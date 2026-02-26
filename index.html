@@ -3,65 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FARAH JOURNAL | Hargeisa</title>
+    <title>FARAH JOURNAL | Global News Portal</title>
     <style>
-        :root { --primary: #c00; --dark: #1a1a1a; --text: #333; }
-        body { font-family: 'Georgia', serif; margin: 0; background: #fff; color: var(--text); }
+        :root { --primary: #c00; --dark: #121212; --border: #eee; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Georgia', serif; margin: 0; background: #fff; color: #222; }
         
-        /* Header */
-        header { padding: 30px 5%; text-align: center; border-bottom: 1px solid #eee; }
-        .logo { font-size: 45px; font-weight: 900; color: #000; text-decoration: none; text-transform: uppercase; }
+        /* Header & Nav */
+        header { padding: 20px; text-align: center; border-bottom: 1px solid #ddd; }
+        .logo { font-size: 40px; font-weight: 900; color: var(--dark); text-decoration: none; text-transform: uppercase; letter-spacing: -1px; }
         .logo span { color: var(--primary); }
-        
-        /* Navigation */
-        nav { background: var(--dark); padding: 12px; display: flex; justify-content: center; gap: 25px; position: sticky; top: 0; z-index: 1000; }
-        nav a { color: #fff; text-decoration: none; font-family: sans-serif; font-weight: bold; font-size: 13px; text-transform: uppercase; }
+        nav { background: var(--dark); padding: 10px; display: flex; justify-content: center; gap: 20px; position: sticky; top: 0; z-index: 1000; }
+        nav a { color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; text-transform: uppercase; font-family: sans-serif; }
 
         /* Ticker */
-        .ticker-bar { background: #f9f9f9; border-bottom: 1px solid #ddd; padding: 10px 5%; overflow: hidden; display: flex; font-family: sans-serif; }
-        .ticker-label { color: var(--primary); font-weight: bold; margin-right: 15px; flex-shrink: 0; }
-        .ticker-move { white-space: nowrap; animation: ticker-anim 60s linear infinite; }
-        @keyframes ticker-anim { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .ticker-wrap { background: #f9f9f9; border-bottom: 1px solid #ddd; padding: 10px 5%; overflow: hidden; display: flex; font-family: sans-serif; font-size: 13px; }
+        .ticker-btn { background: var(--primary); color: #fff; padding: 2px 10px; font-size: 11px; font-weight: bold; margin-right: 15px; }
+        .ticker-text { white-space: nowrap; animation: move 60s linear infinite; }
+        @keyframes move { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* Layout - BBC Style */
-        .main-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+        /* BBC Style Layout */
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         
-        /* --- HALKAN AYAA SAWIRKA LAGA SAXAY (NO BLACK BARS) --- */
-        .hero-article { position: relative; }
-        .hero-img-container { width: 100%; height: 450px; overflow: hidden; background: #eee; margin-bottom: 20px; }
-        .hero-img-container img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; /* Sawirku hadda wuu buuxinayaa booska, madow dambe ma jiro */
-            display: block;
-        }
-        .hero-article h1 { font-size: 36px; line-height: 1.1; margin: 0 0 15px 0; color: #000; }
-        .hero-article p { font-size: 18px; line-height: 1.6; color: #555; }
+        /* Main Story */
+        .main-story img { width: 100%; height: 450px; object-fit: cover; background: #000; }
+        .main-story h1 { font-size: clamp(24px, 5vw, 36px); margin: 15px 0; line-height: 1.1; }
+        .main-story p { font-size: 18px; line-height: 1.6; color: #444; }
 
-        /* Sidebar Articles */
-        .sidebar { display: flex; flex-direction: column; gap: 25px; }
-        .side-post { border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .side-post h3 { font-size: 18px; margin: 0 0 8px 0; line-height: 1.3; }
-        .side-post h3:hover { color: var(--primary); cursor: pointer; }
-        .side-post p { font-size: 14px; color: #666; margin: 0; }
+        /* Sidebar with Images */
+        .sidebar { display: flex; flex-direction: column; gap: 20px; border-left: 1px solid #eee; padding-left: 20px; }
+        .sidebar-header { border-top: 3px solid #000; padding-top: 5px; font-weight: bold; font-family: sans-serif; font-size: 14px; margin-bottom: 10px; }
+        .side-item { display: grid; grid-template-columns: 100px 1fr; gap: 12px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .side-item img { width: 100px; height: 70px; object-fit: cover; background: #eee; }
+        .side-item h3 { font-size: 15px; margin: 0; line-height: 1.3; cursor: pointer; }
+        .side-item h3:hover { color: var(--primary); }
 
-        /* Hidden Admin */
-        #admin-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 30px; box-shadow: 0 0 50px rgba(0,0,0,0.5); z-index: 2000; width: 90%; max-width: 450px; }
+        /* Admin Box */
+        #admin-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 30px; box-shadow: 0 0 50px rgba(0,0,0,0.5); z-index: 2000; width: 400px; border-top: 5px solid var(--primary); }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1999; }
-        input, textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; font-size: 16px; }
-        .publish-btn { background: var(--primary); color: #fff; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; }
+        input, textarea, select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; }
+        .btn-post { background: var(--primary); color: #fff; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; }
 
-        footer { background: #111; color: #777; padding: 50px 20px; text-align: center; margin-top: 50px; }
-        .admin-link { color: #222; font-size: 10px; cursor: pointer; text-decoration: none; }
+        footer { background: var(--dark); color: #555; padding: 40px; text-align: center; margin-top: 50px; font-size: 12px; }
+        .admin-trig { cursor: pointer; opacity: 0.2; }
 
-        @media (max-width: 850px) { .main-container { grid-template-columns: 1fr; } .hero-img-container { height: 300px; } }
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { border-left: none; padding-left: 0; }
+            .main-story img { height: 300px; }
+        }
     </style>
 </head>
 <body>
 
 <header>
     <a href="#" class="logo">FARAH<span>JOURNAL</span></a>
-    <p style="font-size: 13px; color: #666; letter-spacing: 2px;">HARGEISA | SOMALILAND | GLOBAL NEWS</p>
+    <p style="font-size:12px; color: #777;">Hargeisa, Somaliland | Thursday, Feb 26, 2026</p>
 </header>
 
 <nav>
@@ -71,86 +68,97 @@
     <a href="#" onclick="render('Global')">Global</a>
 </nav>
 
-<div class="ticker-bar">
-    <div class="ticker-label">LATEST</div>
-    <div class="ticker-move" id="ticker">Loading global updates...</div>
+<div class="ticker-wrap">
+    <div class="ticker-btn">LATEST</div>
+    <div class="ticker-text" id="ticker">Farah Journal - Information with Integrity...</div>
 </div>
 
-<div class="main-container">
+<div class="container">
     <main id="main-content"></main>
-    <aside class="sidebar" id="sidebar-content"></aside>
+    <aside class="sidebar">
+        <div class="sidebar-header">TOP STORIES</div>
+        <div id="side-content"></div>
+    </aside>
 </div>
 
 <div class="overlay" id="ovl" onclick="toggleAdmin()"></div>
-<div id="admin-modal">
+<div id="admin-box">
     <h3>Staff Access</h3>
     <input type="password" id="pw" placeholder="Password">
     <input type="text" id="tt" placeholder="Headline">
-    <textarea id="cc" rows="5" placeholder="Content"></textarea>
+    <textarea id="cc" rows="5" placeholder="Story content"></textarea>
+    <select id="ct">
+        <option value="Politics">Politics</option>
+        <option value="Economy">Economy</option>
+        <option value="Global">Global</option>
+    </select>
     <input type="file" id="ff">
-    <button class="publish-btn" onclick="publish()">PUBLISH ARTICLE</button>
+    <button class="btn-post" onclick="add()">PUBLISH NEWS</button>
 </div>
 
 <footer>
-    <p>&copy; 2026 Farah Journal. All rights reserved.</p>
-    <span class="admin-link" onclick="toggleAdmin()">[Admin Access]</span>
+    <p>&copy; 2026 Farah Journal | Hargeisa, Somaliland</p>
+    <span class="admin-trig" onclick="toggleAdmin()">[Staff Login]</span>
 </footer>
 
 <script>
     const KEY = "Farah2026";
-    let db = JSON.parse(localStorage.getItem("fj_modern_v1")) || [];
+    // Waxaan isticmaalaynaa database-kaagii hore si uusan u tirtirmin
+    let db = JSON.parse(localStorage.getItem("fj_magazine_v1")) || [];
 
     function toggleAdmin() {
-        const m = document.getElementById("admin-modal");
+        const b = document.getElementById("admin-box");
         const o = document.getElementById("ovl");
-        const v = m.style.display === "block";
-        m.style.display = v ? "none" : "block";
+        const v = b.style.display === "block";
+        b.style.display = v ? "none" : "block";
         o.style.display = v ? "none" : "block";
     }
 
     function render(f = 'All') {
         const main = document.getElementById("main-content");
-        const side = document.getElementById("sidebar-content");
+        const side = document.getElementById("side-content");
         const ticker = document.getElementById("ticker");
         const filtered = f === 'All' ? db : db.filter(n => n.cat === f);
 
         if(filtered.length > 0) {
-            // Warka Weyn (Hero)
+            // Warka ugu weyn
             const top = filtered[0];
             main.innerHTML = `
-                <article class="hero-article">
-                    <div class="hero-img-container">
-                        <img src="${top.img}" alt="${top.title}">
-                    </div>
-                    <span style="color:red; font-family:sans-serif; font-size:12px; font-weight:bold; text-transform:uppercase;">${top.cat || 'Politics'}</span>
+                <article class="main-story">
+                    <img src="${top.img || 'https://via.placeholder.com/600x400'}">
+                    <span style="color:red; font-size:12px; font-weight:bold; font-family:sans-serif; text-transform:uppercase;">${top.cat || 'News'}</span>
                     <h1>${top.title}</h1>
                     <p>${top.text.substring(0, 350)}...</p>
+                    <button onclick="remove(${db.indexOf(top)})" style="border:none; background:none; color:#ddd; cursor:pointer;">[Delete]</button>
                 </article>`;
 
-            // Wararka Dhinaca (Side Stories)
-            side.innerHTML = filtered.slice(1, 6).map(n => `
-                <div class="side-post">
-                    <span style="color:red; font-size:11px; font-weight:bold;">${n.cat || 'News'}</span>
-                    <h3>${n.title}</h3>
-                    <p>${n.text.substring(0, 100)}...</p>
-                    <button onclick="remove(${db.indexOf(n)})" style="background:none; border:none; color:gray; font-size:10px; cursor:pointer;">Delete</button>
+            // Wararka dhinaca (Side with Images)
+            side.innerHTML = filtered.slice(1, 15).map(n => `
+                <div class="side-item">
+                    <img src="${n.img || 'https://via.placeholder.com/100x70'}">
+                    <div>
+                        <span style="font-size:10px; color:red; font-weight:bold; font-family:sans-serif;">${n.cat || 'News'}</span>
+                        <h3>${n.title}</h3>
+                        <button onclick="remove(${db.indexOf(n)})" style="border:none; background:none; color:#eee; cursor:pointer; font-size:9px;">[x]</button>
+                    </div>
                 </div>`).join("");
         }
         
         ticker.innerText = db.map(n => n.title.toUpperCase()).join(" ••• ");
-        localStorage.setItem("fj_modern_v1", JSON.stringify(db));
+        localStorage.setItem("fj_magazine_v1", JSON.stringify(db));
     }
 
-    function publish() {
+    function add() {
         const pw = document.getElementById("pw").value;
-        const tt = document.getElementById("tt").value;
-        const cc = document.getElementById("cc").value;
+        const title = document.getElementById("tt").value;
+        const text = document.getElementById("cc").value;
+        const cat = document.getElementById("ct").value;
         const file = document.getElementById("ff").files[0];
 
         if(pw !== KEY) return alert("Wrong Password");
 
-        const save = (img) => {
-            db.unshift({title: tt, text: cc, img: img || "https://via.placeholder.com/800x450", cat: "Politics"});
+        const save = (imgData) => {
+            db.unshift({title, text, img: imgData || 'https://via.placeholder.com/600', cat});
             render(); toggleAdmin();
             document.getElementById("tt").value = ""; document.getElementById("cc").value = "";
         };
@@ -162,7 +170,9 @@
         } else save();
     }
 
-    function remove(i) { if(prompt("Password:") === KEY) { db.splice(i, 1); render(); } }
+    function remove(i) {
+        if(prompt("Enter Admin Pass:") === KEY) { db.splice(i, 1); render(); }
+    }
 
     render();
 </script>
