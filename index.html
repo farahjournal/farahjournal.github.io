@@ -1,165 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farah Journal | Global News Bureau</title>
-    <style>
-        :root { --bbc-red: #bb0000; --agency-black: #121212; --bg-gray: #f6f6f6; }
-        body { font-family: 'Arial', sans-serif; margin: 0; background: #fff; color: #222; }
-        
-        /* Header & Branding */
-        header { background: var(--bbc-red); color: #fff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 5px solid #900; }
-        .logo { font-size: 32px; font-weight: 900; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: -1px; }
-        .logo span { background: #fff; color: var(--bbc-red); padding: 0 5px; margin-right: 2px; }
-        
-        /* Navigation */
-        nav { background: var(--agency-black); padding: 0 8%; display: flex; position: sticky; top: 0; z-index: 1000; overflow-x: auto; }
-        nav a { color: #fff; padding: 16px 20px; text-decoration: none; font-size: 13px; font-weight: bold; text-transform: uppercase; border-right: 1px solid #333; white-space: nowrap; }
-        nav a:hover { background: var(--bbc-red); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farah Journal | Global Analysis</title>
 
-        /* Main Container */
-        .container { max-width: 1300px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2.8fr 1.2fr; gap: 40px; }
-        
-        /* News Styling */
-        .hero-news img { width: 100%; height: auto; max-height: 500px; object-fit: cover; border-bottom: 4px solid var(--bbc-red); }
-        .hero-news h1 { font-size: 42px; line-height: 1.1; margin: 20px 0; font-weight: 800; }
-        .hero-news p { font-size: 19px; line-height: 1.6; color: #333; }
-        
-        .news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 40px; border-top: 2px solid #eee; padding-top: 30px; }
-        .grid-card img { width: 100%; height: 180px; object-fit: cover; }
-        .grid-card h3 { font-size: 18px; margin: 10px 0; line-height: 1.3; }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#fff;color:#111}
+a{text-decoration:none;color:inherit}
+.container{width:90%;max-width:1200px;margin:auto}
 
-        /* Editorial Access Panel (The Upload System) */
-        #admin-panel { display: none; position: fixed; top: 5%; left: 50%; transform: translateX(-50%); background: #fff; padding: 30px; width: 420px; box-shadow: 0 0 100px rgba(0,0,0,0.6); border-radius: 8px; z-index: 10000; border-top: 10px solid var(--bbc-red); }
-        #admin-panel input, #admin-panel textarea, #admin-panel select { width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
-        .btn-pub { background: var(--bbc-red); color: #fff; border: none; padding: 16px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
-        
-        /* Custom Upload Button Style */
-        .file-box { border: 2px dashed #ccc; padding: 20px; text-align: center; margin-bottom: 15px; cursor: pointer; border-radius: 4px; }
-        .file-box:hover { border-color: var(--bbc-red); background: #fffcfc; }
+/* HEADER */
+header{background:#000;color:#fff}
+.header-inner{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+.logo{font-size:20px;font-weight:bold}
+nav a{margin-left:20px;font-size:14px}
+nav a:hover{text-decoration:underline}
 
-        footer { background: var(--agency-black); color: #777; padding: 60px 8%; text-align: center; margin-top: 60px; }
-        
-        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .hero-news h1 { font-size: 30px; } }
-    </style>
+/* MAIN */
+.main-grid{display:grid;grid-template-columns:3fr 1fr;gap:40px;margin-top:40px}
+.tag{color:#b80000;font-size:13px;font-weight:bold}
+h1{font-size:36px;margin:15px 0}
+.meta{font-size:13px;color:#666}
+.main-img{width:100%;margin:20px 0}
+.intro{font-size:18px;line-height:1.6}
+
+/* SIDEBAR */
+aside{border-left:4px solid #b80000;padding-left:20px}
+
+/* MORE NEWS */
+.more-news{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;margin:60px auto}
+.more-news img{width:100%}
+.more-news h4{margin-top:10px}
+
+/* FOOTER */
+footer{background:#111;color:#ccc;text-align:center;padding:20px;margin-top:60px;font-size:13px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+.main-grid{grid-template-columns:1fr}
+nav{display:none}
+}
+</style>
 </head>
+
 <body>
 
 <header>
-    <a href="#" class="logo"><span>F</span>ARAH JOURNAL</a>
-    <div style="font-size:11px; font-weight:bold; text-align:right; line-height:1.2;">GLOBAL NEWS BUREAU<br>STRATEGIC INTELLIGENCE</div>
+  <div class="container header-inner">
+    <div class="logo">FARAH JOURNAL</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">World</a>
+      <a href="#">Politics</a>
+      <a href="#">Economy</a>
+      <a href="#">Policy</a>
+    </nav>
+  </div>
 </header>
 
-<nav>
-    <a href="#">Home</a><a href="#">World News</a><a href="#">Politics</a><a href="#">Economy</a><a href="#">Policy</a>
-</nav>
+<main class="container main-grid">
+  <section>
+    <span class="tag">LATEST ANALYSIS</span>
+    <h1>The Role of Somaliland Intellectuals in Strengthening Public Administration</h1>
+    <p class="meta">By Farah Journal | Policy Analysis</p>
 
-<div class="container">
-    <main>
-        <article id="hero-section" class="hero-news">
-            <p>Connecting to Farah Journal Global Feed...</p>
-        </article>
-        <div id="grid-section" class="news-grid"></div>
-    </main>
-    <aside>
-        <div style="background:var(--bg-gray); padding:25px; border-left: 5px solid var(--bbc-red);">
-            <h3 style="margin-top:0;">ABOUT THE BUREAU</h3>
-            <p style="font-size:13px; line-height:1.6; color:#555;">Farah Journal is an independent agency specializing in public policy, strategic management, and geopolitics. We provide evidence-based analysis for global decision-makers.</p>
-        </div>
-    </aside>
-</div>
+    <!-- SAWIR: ku beddel link-kaaga -->
+    <img class="main-img" src="https://images.unsplash.com/photo-1521791136064-7986c2920216" alt="Public administration">
 
-<div id="admin-panel">
-    <h2 style="margin:0 0 20px 0;">Staff Editorial Access</h2>
-    <input type="password" id="auth" placeholder="Enter Access Key">
-    <input type="text" id="title" placeholder="News Headline">
-    <textarea id="body" rows="6" placeholder="Report content..."></textarea>
-    
-    <div class="file-box" onclick="document.getElementById('img-upload').click()">
-        <span id="file-status" style="color:var(--bbc-red); font-weight:bold;">📸 Click to Upload Image from Device</span>
-        <input type="file" id="img-upload" accept="image/*" style="display:none">
-    </div>
-    
-    <button class="btn-pub" onclick="publishReport()">PUBLISH TO GLOBAL FEED</button>
-    <p onclick="document.getElementById('admin-panel').style.display='none'" style="text-align:center; color:gray; cursor:pointer; margin-top:15px; font-size:12px;">Close Access</p>
-</div>
+    <p class="intro">
+      Intellectual leadership plays a decisive role in shaping effective public institutions,
+      governance reforms, and national development strategies.
+    </p>
+  </section>
+
+  <aside>
+    <h3>ABOUT THE BUREAU</h3>
+    <p>
+      Farah Journal is an independent policy and research platform providing
+      evidence-based analysis on governance, geopolitics, and public administration.
+    </p>
+  </aside>
+</main>
+
+<section class="container more-news">
+  <article>
+    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf">
+    <h4>Somaliland’s Strategic Vision for 2026: A Global Perspective</h4>
+  </article>
+
+  <article>
+    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40">
+    <h4>Institutional Reform and Economic Governance</h4>
+  </article>
+</section>
 
 <footer>
-    <p style="color:#fff; font-weight:bold; font-size:18px; margin-bottom:10px;">FARAH JOURNAL</p>
-    <p>&copy; 2026 FARAH JOURNAL GLOBAL BUREAU. ALL RIGHTS RESERVED.</p>
-    <span onclick="document.getElementById('admin-panel').style.display='block'" style="opacity:0.1; cursor:pointer;">[Staff Login]</span>
+  © 2026 Farah Journal – Independent Global Analysis
 </footer>
 
-<script>
-    const DB_URL = "https://farahjournal-f646a-default-rtdb.firebaseio.com/news.json";
-    
-    // TALLAABADA KALIYA EE HARAY: Geli furihii aad ka soo koobiyaysay ImgBB halkan
-    const IMGBB_API_KEY = "7d9f8c2e1234567890abcdef12345678"; 
-
-    // Update text when file is selected
-    document.getElementById('img-upload').onchange = function() {
-        document.getElementById('file-status').innerText = "✅ Image Selected: " + this.files[0].name;
-    };
-
-    async function loadNews() {
-        try {
-            const res = await fetch(DB_URL);
-            const data = await res.json();
-            if(!data) return;
-            const posts = Object.values(data).reverse();
-
-            // Hero Story
-            document.getElementById('hero-section').innerHTML = `
-                <small style="color:red; font-weight:bold; text-transform:uppercase;">Latest Analysis</small>
-                <h1>${posts[0].title}</h1>
-                <img src="${posts[0].img}">
-                <p>${posts[0].body}</p>
-            `;
-
-            // News Grid
-            document.getElementById('grid-section').innerHTML = posts.slice(1, 5).map(p => `
-                <div class="grid-card">
-                    <img src="${p.img}">
-                    <h3>${p.title}</h3>
-                </div>
-            `).join('');
-        } catch(e) { console.log("Error loading news."); }
-    }
-
-    async function publishReport() {
-        const key = document.getElementById('auth').value;
-        const file = document.getElementById('img-upload').files[0];
-        const title = document.getElementById('title').value;
-        const body = document.getElementById('body').value;
-
-        if(key !== "Farah2026") return alert("Unauthorized Access Key!");
-        if(!file || !title || !body) return alert("Please fill all fields and select an image.");
-
-        const formData = new FormData();
-        formData.append("image", file);
-
-        try {
-            // Step 1: Upload to ImgBB (No link needed)
-            const imgRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { 
-                method: "POST", 
-                body: formData 
-            });
-            const imgData = await imgRes.json();
-            const finalImgUrl = imgData.data.url;
-
-            // Step 2: Push to Firebase
-            const post = { title, body, img: finalImgUrl, date: new Date().toISOString() };
-            await fetch(DB_URL, { method: "POST", body: JSON.stringify(post) });
-
-            alert("Report Published Successfully!");
-            location.reload();
-        } catch(e) {
-            alert("Error: Hubi API Key-gaaga ImgBB.");
-        }
-    }
-
-    loadNews();
-</script>
 </body>
 </html>
