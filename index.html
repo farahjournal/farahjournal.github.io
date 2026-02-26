@@ -3,70 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Farah Journal - Latest news from Hargeisa, Somaliland and the world. Geopolitics, Economy, and Expert Analysis.">
-    <meta name="keywords" content="Farah Journal, Somaliland News, Hargeisa News, Mohamed Farah Tahar">
-    <title>FARAH JOURNAL | Hargeisa, Somaliland</title>
-    
+    <title>FARAH JOURNAL | Global News Portal</title>
     <style>
-        :root { --primary: #c00; --dark: #111; --bg: #f8f9fa; }
+        :root { --primary: #c00; --dark: #121212; --gray: #f4f4f4; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background: #fff; color: #222; }
         
-        * { box-sizing: border-box; }
-        body { font-family: 'Times New Roman', serif; margin: 0; background: var(--bg); color: #333; overflow-x: hidden; }
-
-        /* Mobile First Design */
-        header { background: #fff; padding: 15px; text-align: center; border-bottom: 5px solid var(--primary); }
-        .logo { font-size: clamp(25px, 8vw, 45px); font-weight: 900; color: var(--dark); text-decoration: none; text-transform: uppercase; }
+        /* Header & Nav */
+        header { padding: 20px; text-align: center; border-bottom: 1px solid #ddd; }
+        .logo { font-size: 40px; font-weight: 900; color: var(--dark); text-decoration: none; text-transform: uppercase; letter-spacing: -1px; }
         .logo span { color: var(--primary); }
+        nav { background: var(--dark); padding: 10px; display: flex; justify-content: center; gap: 20px; position: sticky; top: 0; z-index: 1000; }
+        nav a { color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; text-transform: uppercase; }
 
-        nav { background: var(--dark); padding: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; position: sticky; top: 0; z-index: 1000; }
-        nav a { color: #fff; text-decoration: none; font-family: sans-serif; font-weight: bold; font-size: 12px; text-transform: uppercase; }
+        /* Ticker */
+        .ticker-wrap { background: #fff; border-bottom: 1px solid #ddd; padding: 10px 5%; overflow: hidden; display: flex; }
+        .ticker-btn { background: var(--primary); color: #fff; padding: 2px 10px; font-size: 12px; font-weight: bold; margin-right: 15px; }
+        .ticker-text { white-space: nowrap; animation: move 60s linear infinite; }
+        @keyframes move { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* Ticker - Adjusted for mobile */
-        .ticker-container { background: #fff; padding: 10px; border-bottom: 1px solid #ddd; overflow: hidden; display: flex; }
-        .ticker-label { background: var(--primary); color: #fff; padding: 3px 8px; font-weight: bold; font-size: 11px; margin-right: 10px; flex-shrink: 0; }
-        .ticker-content { white-space: nowrap; animation: ticker-move 70s linear infinite; font-family: sans-serif; }
-        @keyframes ticker-move { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        /* Responsive Layout */
-        .main-wrapper { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+        /* --- BBC STYLE LAYOUT --- */
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
         
-        /* Hero Section - Best for Google SEO */
-        .featured-box { background: #fff; margin-bottom: 30px; border: 1px solid #ddd; }
-        .featured-box img { width: 100%; height: auto; max-height: 500px; object-fit: contain; background: #eee; }
-        .featured-text { padding: 20px; }
-        .featured-text h1 { font-size: clamp(20px, 5vw, 32px); margin: 10px 0; }
+        /* Qaybta Sare (Main + Side) */
+        .top-section { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-bottom: 40px; }
+        
+        .main-story img { width: 100%; height: 400px; object-fit: contain; background: #000; }
+        .main-story h1 { font-size: 32px; margin: 15px 0; line-height: 1.2; cursor: pointer; }
+        .main-story h1:hover { color: var(--primary); }
 
-        /* News Grid - Automatic columns */
-        .news-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 20px; 
-        }
-        .card { background: #fff; border: 1px solid #eee; display: flex; flex-direction: column; }
-        .card img { width: 100%; height: 200px; object-fit: contain; background: #f9f9f9; }
-        .card-body { padding: 15px; flex-grow: 1; }
-        .card-body h2 { font-size: 18px; margin: 10px 0; }
+        .side-stories { display: flex; flex-direction: column; gap: 20px; border-left: 1px solid #eee; padding-left: 20px; }
+        .side-item { border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .side-item h3 { font-size: 16px; margin: 0 0 5px 0; line-height: 1.3; }
+        .side-item p { font-size: 13px; color: #666; margin: 0; }
 
-        /* Hidden Admin Panel */
-        #admin-panel { 
-            display: none; position: fixed; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); background: #fff; 
-            padding: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.5); 
-            z-index: 2000; width: 95%; max-width: 450px; 
-            border-top: 5px solid var(--primary); 
-        }
-        .admin-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1999; }
-        input, textarea, select { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; font-size: 16px; }
-        .post-btn { background: var(--primary); color: #fff; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; }
+        /* Qaybta Hoose (Grid) */
+        .grid-header { border-top: 4px solid var(--dark); padding-top: 10px; margin-bottom: 20px; font-weight: bold; font-size: 20px; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .card img { width: 100%; height: 180px; object-fit: contain; background: #eee; }
+        .card h2 { font-size: 18px; margin: 10px 0; line-height: 1.3; }
 
-        footer { background: #1a1a1a; color: #bbb; padding: 40px 15px; text-align: center; margin-top: 50px; }
-        .admin-trigger { color: #333; font-size: 10px; cursor: pointer; display: block; margin-top: 20px; }
+        /* Hidden Admin */
+        #admin-box { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 30px; box-shadow: 0 0 50px rgba(0,0,0,0.5); z-index: 2000; width: 400px; border-top: 5px solid var(--primary); }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1999; }
+        input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; }
+        .btn-post { background: var(--primary); color: #fff; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; }
 
-        /* Mobile specific adjustments */
-        @media (max-width: 600px) {
-            .featured-text { padding: 15px; }
-            .news-grid { grid-template-columns: 1fr; }
-            nav { gap: 10px; }
+        footer { background: var(--dark); color: #888; padding: 40px; text-align: center; margin-top: 50px; }
+        .login-trig { font-size: 10px; color: #333; cursor: pointer; }
+
+        /* Mobile */
+        @media (max-width: 850px) {
+            .top-section { grid-template-columns: 1fr; }
+            .side-stories { border-left: none; padding-left: 0; }
         }
     </style>
 </head>
@@ -74,156 +62,115 @@
 
 <header>
     <a href="#" class="logo">FARAH<span>JOURNAL</span></a>
-    <p style="font-size: 13px; color: #666; margin-top: 5px;">HARGEISA | SOMALILAND | GLOBAL NEWS</p>
+    <p style="font-size:12px; color: #777;">Thursday, February 26, 2026</p>
 </header>
 
-<nav>
+<nav id="navbar">
     <a href="#" onclick="render('All')">Home</a>
     <a href="#" onclick="render('Politics')">Politics</a>
     <a href="#" onclick="render('Economy')">Economy</a>
-    <a href="#" onclick="render('Global')">Global News</a>
+    <a href="#" onclick="render('Global')">Global</a>
 </nav>
 
-<div class="ticker-container">
-    <div class="ticker-label">LATEST</div>
-    <div class="ticker-content" id="ticker">Welcome to Farah Journal...</div>
+<div class="ticker-wrap">
+    <div class="ticker-btn">LATEST</div>
+    <div class="ticker-text" id="ticker">Farah Journal - Your Global Information Partner...</div>
 </div>
 
-<div class="main-wrapper">
-    <article id="hero-section"></article>
-    <section id="grid" class="news-grid"></section>
+<div class="container">
+    <div class="top-section" id="top-row"></div>
+
+    <div class="grid-header">More Top Stories</div>
+    <div class="news-grid" id="bottom-grid"></div>
 </div>
 
-<div class="admin-overlay" id="overlay" onclick="toggleAdmin()"></div>
-<div id="admin-panel">
-    <h3>✍️ Admin Access</h3>
-    <input type="password" id="pass" placeholder="Password">
-    <input type="text" id="tit" placeholder="News Headline">
-    <textarea id="con" rows="5" placeholder="Write your article here..."></textarea>
-    <select id="cat">
-        <option value="Politics">Politics</option>
-        <option value="Economy">Economy</option>
-        <option value="Global">Global News</option>
-    </select>
-    <label style="font-size: 12px;">Upload Photo:</label>
-    <input type="file" id="imgFile">
-    <input type="hidden" id="edit-id" value="-1">
-    <button class="post-btn" id="submit-btn" onclick="publish()">PUBLISH NEWS</button>
+<div class="overlay" id="ovl" onclick="toggleAdmin()"></div>
+<div id="admin-box">
+    <h3>Staff Access</h3>
+    <input type="password" id="pw" placeholder="Password">
+    <input type="text" id="tt" placeholder="Headline">
+    <textarea id="cc" rows="5" placeholder="Content"></textarea>
+    <input type="file" id="ff">
+    <button class="btn-post" onclick="add()">PUBLISH</button>
 </div>
 
 <footer>
-    <div style="max-width: 600px; margin: 0 auto;">
-        <h3>FARAH JOURNAL</h3>
-        <p>Leading the conversation on Somaliland's future and global affairs.</p>
-        <p>Email: farahjournal2@gmail.com | Hargeisa, SL</p>
-    </div>
-    <span class="admin-trigger" onclick="toggleAdmin()">[Staff Access]</span>
+    <p>&copy; 2026 Farah Journal | Hargeisa, Somaliland</p>
+    <span class="login-trig" onclick="toggleAdmin()">[Staff Login]</span>
 </footer>
 
 <script>
     const KEY = "Farah2026";
-    let db = JSON.parse(localStorage.getItem("fj_final_v10")) || [];
+    let db = JSON.parse(localStorage.getItem("fj_magazine_v1")) || [];
 
     function toggleAdmin() {
-        const p = document.getElementById("admin-panel");
-        const o = document.getElementById("overlay");
-        const vis = p.style.display === "block";
-        p.style.display = vis ? "none" : "block";
-        o.style.display = vis ? "none" : "block";
+        const b = document.getElementById("admin-box");
+        const o = document.getElementById("ovl");
+        const v = b.style.display === "block";
+        b.style.display = v ? "none" : "block";
+        o.style.display = v ? "none" : "block";
     }
 
     function render(f = 'All') {
-        const hero = document.getElementById("hero-section");
-        const grid = document.getElementById("grid");
+        const topRow = document.getElementById("top-row");
+        const grid = document.getElementById("bottom-grid");
         const ticker = document.getElementById("ticker");
-        const filtered = f === 'All' ? db : db.filter(n => n.category === f);
-        
+        const filtered = f === 'All' ? db : db.filter(n => n.cat === f);
+
         if(filtered.length > 0) {
-            const top = filtered[0];
-            hero.innerHTML = `
-                <div class="featured-box">
-                    <img src="${top.image}" alt="${top.title}">
-                    <div class="featured-text">
-                        <span style="color:red; font-weight:bold; font-size:14px;">${top.category}</span>
-                        <h1>${top.title}</h1>
-                        <p>${top.content.substring(0, 250)}...</p>
-                        <button onclick="startEdit(${db.indexOf(top)})" style="color:orange; border:none; background:none; cursor:pointer; font-weight:bold;">EDIT</button>
-                    </div>
-                </div>`;
+            // 1. Warka ugu weyn (Main)
+            const main = filtered[0];
+            let topHtml = `
+                <div class="main-story">
+                    <img src="${main.img}">
+                    <span style="color:red; font-size:12px; font-weight:bold; text-transform:uppercase;">${main.cat || 'News'}</span>
+                    <h1>${main.title}</h1>
+                    <p>${main.text.substring(0, 150)}...</p>
+                </div>
+                <div class="side-stories">`;
             
-            grid.innerHTML = filtered.slice(1).map((n) => {
-                const idx = db.indexOf(n);
-                return `
-                <article class="card">
-                    <img src="${n.image}" alt="${n.title}">
-                    <div class="card-body">
-                        <span style="color:red; font-weight:bold; font-size:11px;">${n.category}</span>
-                        <h2>${n.title}</h2>
-                        <button onclick="remove(${idx})" style="color:red; border:none; background:none; cursor:pointer; font-weight:bold; font-size:11px;">DELETE</button>
-                    </div>
-                </article>`;
-            }).join("");
-        } else {
-            hero.innerHTML = "<p>No news available in this category.</p>";
-            grid.innerHTML = "";
+            // 2. Wararka dhinaca (Side - Next 3 stories)
+            const sides = filtered.slice(1, 4);
+            topHtml += sides.map(n => `
+                <div class="side-item">
+                    <h3>${n.title}</h3>
+                    <p>${n.text.substring(0, 60)}...</p>
+                </div>`).join("");
+            topHtml += `</div>`;
+            topRow.innerHTML = topHtml;
+
+            // 3. Wararka kale ee grid-ka (The rest)
+            grid.innerHTML = filtered.slice(4).map(n => `
+                <div class="card">
+                    <img src="${n.img}">
+                    <h2>${n.title}</h2>
+                    <p style="font-size:12px; color:#666;">${n.text.substring(0, 80)}...</p>
+                </div>`).join("");
         }
         
-        ticker.innerText = " LATEST NEWS: " + db.map(n => n.title.toUpperCase()).join(" ••• ");
-        localStorage.setItem("fj_final_v10", JSON.stringify(db));
+        ticker.innerText = db.map(n => n.title.toUpperCase()).join(" ••• ");
+        localStorage.setItem("fj_magazine_v1", JSON.stringify(db));
     }
 
-    function publish() {
-        const pass = document.getElementById("pass").value;
-        const title = document.getElementById("tit").value;
-        let content = document.getElementById("con").value;
-        const category = document.getElementById("cat").value;
-        const editId = parseInt(document.getElementById("edit-id").value);
-        const fileInput = document.getElementById("imgFile");
+    function add() {
+        const pw = document.getElementById("pw").value;
+        const title = document.getElementById("tt").value;
+        const text = document.getElementById("cc").value;
+        const file = document.getElementById("ff").files[0];
 
-        if(pass !== KEY) return alert("Security Error: Invalid Password.");
-        if(!title || !content) return alert("Please fill in headline and content.");
+        if(pw !== KEY) return alert("Access Denied");
 
         const save = (img) => {
-            if(editId === -1) {
-                const date = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-                const fullContent = `**FARAH JOURNAL** — *${date}* — ` + content;
-                db.unshift({title, content: fullContent, category, image: img || "https://via.placeholder.com/800x400"});
-            } else {
-                db[editId].title = title;
-                db[editId].content = content;
-                db[editId].category = category;
-                if(img) db[editId].image = img;
-                document.getElementById("edit-id").value = "-1";
-            }
-            render(); clear(); toggleAdmin();
+            db.unshift({title, text, img: img || 'https://via.placeholder.com/600', cat: 'Politics'});
+            render(); toggleAdmin();
+            document.getElementById("tt").value = ""; document.getElementById("cc").value = "";
         };
 
-        if(fileInput.files[0]) {
-            const reader = new FileReader();
-            reader.readAsDataURL(fileInput.files[0]);
-            reader.onload = () => save(reader.result);
-        } else save(editId !== -1 ? db[editId].image : null);
-    }
-
-    function startEdit(i) {
-        toggleAdmin();
-        const n = db[i];
-        document.getElementById("tit").value = n.title;
-        document.getElementById("con").value = n.content;
-        document.getElementById("cat").value = n.category;
-        document.getElementById("edit-id").value = i;
-        document.getElementById("submit-btn").innerText = "UPDATE POST";
-    }
-
-    function clear() { 
-        document.getElementById("tit").value = ""; 
-        document.getElementById("con").value = ""; 
-        document.getElementById("pass").value = ""; 
-        document.getElementById("imgFile").value = "";
-    }
-
-    function remove(i) {
-        if(prompt("Enter Admin Password to delete:") === KEY) { db.splice(i, 1); render(); }
+        if(file) {
+            const r = new FileReader();
+            r.readAsDataURL(file);
+            r.onload = () => save(r.result);
+        } else save();
     }
 
     render();
