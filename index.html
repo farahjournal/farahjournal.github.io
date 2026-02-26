@@ -3,149 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farah Journal | Global News Service</title>
+    <title>Farah Journal | Global News & Intelligence Bureau</title>
     <style>
-        :root { --bbc-red: #bb0000; --dark: #111; }
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background: #f6f6f6; }
-        header { background: var(--bbc-red); color: #fff; padding: 15px 5%; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-size: 30px; font-weight: 900; color: #fff; text-decoration: none; text-transform: uppercase; }
-        .logo span { background: #fff; color: var(--bbc-red); padding: 0 5px; margin-right: 2px; }
-        nav { background: #333; padding: 12px 5%; display: flex; gap: 20px; overflow-x: auto; }
-        nav a { color: #fff; text-decoration: none; font-weight: bold; font-size: 14px; white-space: nowrap; }
-        .news-ticker { background: #fff; border-bottom: 1px solid #ddd; padding: 10px 5%; overflow: hidden; white-space: nowrap; font-weight: 500; }
-        .container { max-width: 1200px; margin: 20px auto; display: grid; grid-template-columns: 2.5fr 1fr; gap: 30px; padding: 0 20px; }
-        main { background: #fff; padding: 25px; border-bottom: 3px solid #ddd; }
-        .sidebar { background: #fff; padding: 20px; border: 1px solid #eee; }
-        .main-img { width: 100%; height: auto; max-height: 500px; object-fit: cover; border-radius: 4px; }
-        h1 { font-size: 38px; line-height: 1.1; margin: 15px 0; color: #000; }
-        .interaction { display: flex; gap: 20px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; }
-        .btn-share { background: #1877F2; color: #fff; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; }
-        #admin-panel { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 30px; border: 2px solid #000; z-index: 2000; width: 90%; max-width: 400px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        #admin-panel input, #admin-panel textarea { width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; }
-        footer { background: var(--dark); color: #999; padding: 40px; text-align: center; margin-top: 50px; }
-        .staff-link { opacity: 0.1; cursor: pointer; font-size: 10px; text-decoration: none; color: inherit; }
-        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } h1 { font-size: 28px; } }
+        :root { --bbc-red: #bb0000; --agency-black: #121212; --border-color: #e0e0e0; --bg-gray: #f6f6f6; }
+        body { font-family: 'Arial', sans-serif; margin: 0; background: #fff; color: #222; }
+        
+        /* BBC-Style Header */
+        header { background: var(--bbc-red); color: #fff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 5px solid #900; }
+        .logo { font-size: 36px; font-weight: 900; letter-spacing: -2px; text-decoration: none; color: #fff; text-transform: uppercase; }
+        .logo span { background: #fff; color: var(--bbc-red); padding: 0 6px; margin-right: 2px; }
+        .agency-tag { font-size: 11px; font-weight: bold; border-left: 1px solid #fff; padding-left: 10px; line-height: 1.2; }
+
+        /* Navigation Bar */
+        nav { background: var(--agency-black); padding: 0 8%; display: flex; overflow-x: auto; position: sticky; top: 0; z-index: 1000; }
+        nav a { color: #fff; padding: 16px 20px; text-decoration: none; font-size: 13px; font-weight: bold; text-transform: uppercase; border-right: 1px solid #333; }
+        nav a:hover { background: var(--bbc-red); }
+
+        /* Live Ticker */
+        .ticker-bar { background: var(--bg-gray); padding: 10px 8%; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; }
+        .ticker-label { color: var(--bbc-red); font-weight: bold; font-size: 13px; margin-right: 15px; display: flex; align-items: center; }
+        .ticker-label::before { content: ''; width: 10px; height: 10px; background: var(--bbc-red); border-radius: 50%; margin-right: 8px; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* Main Grid Layout */
+        .container { max-width: 1350px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2.8fr 1.2fr; gap: 40px; }
+        
+        /* Main Hero Story */
+        .hero-news img { width: 100%; height: auto; max-height: 550px; object-fit: cover; border-bottom: 4px solid var(--bbc-red); }
+        .hero-news h1 { font-size: 46px; line-height: 1; margin: 20px 0; font-weight: 800; letter-spacing: -1px; }
+        .hero-news p { font-size: 20px; line-height: 1.6; color: #333; }
+        .label { color: var(--bbc-red); font-weight: bold; text-transform: uppercase; font-size: 12px; margin-bottom: 5px; display: block; }
+
+        /* Secondary News Grid */
+        .news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; border-top: 2px solid #eee; padding-top: 30px; }
+        .grid-card img { width: 100%; height: 200px; object-fit: cover; }
+        .grid-card h3 { font-size: 20px; margin: 15px 0; line-height: 1.2; }
+
+        /* Sidebar - Latest Briefs */
+        .sidebar h2 { border-top: 5px solid var(--bbc-red); padding-top: 10px; font-size: 22px; margin-bottom: 25px; text-transform: uppercase; }
+        .side-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; cursor: pointer; }
+        .side-item img { width: 100px; height: 65px; object-fit: cover; }
+        .side-item h4 { margin: 0; font-size: 15px; line-height: 1.3; }
+        .side-item:hover h4 { color: var(--bbc-red); text-decoration: underline; }
+
+        /* Editorial Access Panel */
+        #admin-panel { display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); background: #fff; padding: 35px; width: 420px; box-shadow: 0 0 100px rgba(0,0,0,0.6); border-radius: 8px; z-index: 10000; border-top: 10px solid var(--bbc-red); }
+        input, textarea, select { width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .btn-pub { background: var(--bbc-red); color: #fff; border: none; padding: 16px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
+
+        /* Professional Agency Footer */
+        .footer-agency { background: var(--agency-black); color: #999; padding: 70px 8%; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px; margin-top: 80px; }
+        .footer-agency h3 { color: #fff; font-size: 20px; margin-bottom: 20px; }
+        .footer-agency p { font-size: 14px; line-height: 1.6; }
+
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .hero-news h1 { font-size: 32px; } }
     </style>
 </head>
 <body>
 
 <header>
     <a href="#" class="logo"><span>F</span>ARAH JOURNAL</a>
-    <div style="background: #fff; color: red; padding: 2px 8px; font-size: 12px; font-weight: bold; border-radius: 2px;">LIVE</div>
+    <div class="agency-tag">GLOBAL NEWS BUREAU<br>INTELLIGENCE & ANALYSIS</div>
 </header>
 
 <nav>
-    <a href="#">HOME</a><a href="#">WORLD</a><a href="#">POLITICS</a><a href="#">ECONOMY</a><a href="#">AFRICA</a>
+    <a href="#">Home</a><a href="#">World</a><a href="#">Politics</a><a href="#">Economy</a><a href="#">Policy</a><a href="#">Science</a>
 </nav>
 
-<div class="news-ticker" id="ticker">Loading global headlines...</div>
+<div class="ticker-bar">
+    <div class="ticker-label">LIVE FEED</div>
+    <marquee id="ticker-box">Farah Journal: Monitoring international developments and strategic resource shifts...</marquee>
+</div>
 
 <div class="container">
-    <main id="content-area">Loading news from global database...</main>
+    <main>
+        <article id="hero-section" class="hero-news">
+            <p>Syncing with global news servers...</p>
+        </article>
+
+        <div id="grid-section" class="news-grid"></div>
+    </main>
+
     <aside class="sidebar">
-        <h3 style="border-bottom: 3px solid var(--bbc-red); padding-bottom: 5px; margin-top: 0;">TOP STORIES</h3>
-        <div id="side-area"></div>
-        <hr>
-        <div style="font-size: 13px; color: #666;">
-            <strong>EDITORIAL CONTACT:</strong><br>
-            Mohamed Farah Tahar<br>
-            farahjournal2@gmail.com
+        <h2>Latest Briefs</h2>
+        <div id="sidebar-section"></div>
+        
+        <div style="background:var(--bg-gray); padding:25px; margin-top:40px; border-left: 5px solid #ccc;">
+            <p style="font-size:12px; font-weight:bold; color:var(--bbc-red); margin-top:0;">ABOUT THE BUREAU</p>
+            <p style="font-size:13px; color:#555; line-height:1.5;">Farah Journal is an independent, non-partisan news agency specializing in public policy, strategic management, and geopolitics.</p>
         </div>
     </aside>
 </div>
 
 <div id="admin-panel">
-    <h3 style="margin-top:0;">Editorial Access</h3>
-    <input type="password" id="adm-key" placeholder="Auth Key">
-    <input type="text" id="adm-title" placeholder="News Headline">
-    <textarea id="adm-text" rows="5" placeholder="Write the story here..."></textarea>
-    <input type="text" id="adm-img" placeholder="Image URL (Link)">
-    <button onclick="publish()" style="width:100%; padding:12px; background:red; color:#fff; border:none; cursor:pointer; font-weight:bold;">PUBLISH TO WORLD</button>
-    <button onclick="document.getElementById('admin-panel').style.display='none'" style="width:100%; margin-top:5px; background:none; border:none; cursor:pointer; color:#666;">Cancel</button>
+    <h2 style="margin-top:0;">Editorial Access</h2>
+    <input type="password" id="auth" placeholder="Access Key">
+    <input type="text" id="title" placeholder="News Headline">
+    <select id="category">
+        <option value="Politics">Politics</option>
+        <option value="Economy">Economy</option>
+        <option value="World News">World News</option>
+        <option value="Science">Science</option>
+    </select>
+    <textarea id="body" rows="6" placeholder="Write the full report here..."></textarea>
+    
+    <div style="border: 2px dashed #ccc; padding: 15px; text-align: center; margin-bottom: 15px;">
+        <label for="img-upload" style="cursor:pointer; color:var(--bbc-red); font-weight:bold;">📸 Upload Image from Device</label>
+        <input type="file" id="img-upload" accept="image/*" style="display:none">
+        <div id="img-name" style="font-size:11px; color:#999; margin-top:5px;">No image selected</div>
+    </div>
+
+    <button class="btn-pub" onclick="publishReport()">PUBLISH TO GLOBAL FEED</button>
+    <button onclick="document.getElementById('admin-panel').style.display='none'" style="background:none; border:none; color:gray; width:100%; margin-top:15px; cursor:pointer; font-size:12px;">Close Editorial Access</button>
 </div>
 
-<footer>
-    <p>&copy; 2026 Farah Journal Global News Service.</p>
-    <span class="staff-link" onclick="document.getElementById('admin-panel').style.display='block'">[Staff Login]</span>
+<footer class="footer-agency">
+    <div>
+        <h3>FARAH JOURNAL</h3>
+        <p>A premier global news network providing accurate and evidence-based intelligence. We focus on critical events shaping the Horn of Africa and the international community.</p>
+    </div>
+    <div>
+        <h3>QUICK LINKS</h3>
+        <p>• Strategic Reports<br>• Resource Management<br>• Public Policy Analysis<br>• Geopolitical Briefs</p>
+    </div>
+    <div>
+        <h3>BUREAU CONTACT</h3>
+        <p>Editorial: farahjournal2@gmail.com<br>Support: bureau@farahjournal.com</p>
+    </div>
 </footer>
 
+<div style="background:#000; color:#444; text-align:center; padding:25px; font-size:11px; letter-spacing:1px;">
+    &copy; 2026 FARAH JOURNAL GLOBAL BUREAU. ALL RIGHTS RESERVED.
+    <span onclick="document.getElementById('admin-panel').style.display='block'" style="opacity:0.1; cursor:pointer; margin-left:10px;">[Editorial Login]</span>
+</div>
+
 <script>
-    // URL-KAAGA FIREBASE EE RASMIGA AH
-    const DB_URL = "https://farahjournal-f646a-default-rtdb.firebaseio.com/"; 
-    const AUTH = "Farah2026";
+    const DB_URL = "https://farahjournal-f646a-default-rtdb.firebaseio.com/news.json";
+    const IMGBB_API_KEY = "YOUR_IMGBB_API_KEY"; // <--- Geli API Key-gaaga halkan
+
+    document.getElementById('img-upload').onchange = function() {
+        document.getElementById('img-name').innerText = this.files[0].name;
+    };
 
     async function loadNews() {
-        try {
-            const response = await fetch(DB_URL + "/news.json");
-            const data = await response.json();
-            if(data) {
-                const newsArray = Object.values(data).reverse();
-                render(newsArray);
-            } else {
-                document.getElementById("content-area").innerHTML = "No news published yet. Use Staff Login to post.";
-            }
-        } catch (e) {
-            console.error("Database error:", e);
-        }
-    }
-
-    function render(news) {
-        const main = document.getElementById("content-area");
-        const side = document.getElementById("side-area");
-        const ticker = document.getElementById("ticker");
-
-        if(news.length > 0) {
-            const top = news[0];
-            main.innerHTML = `
-                <article>
-                    <div style="color:red; font-weight:bold; font-size:12px; margin-bottom:5px;">FARAH JOURNAL GLOBAL • ${new Date(top.date || Date.now()).toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'})}</div>
-                    <h1>${top.title}</h1>
-                    <img src="${top.img || 'https://via.placeholder.com/800x450'}" class="main-img">
-                    <p style="font-size:20px; line-height:1.7; color:#222; margin-top:20px;">${top.text}</p>
-                    <div class="interaction">
-                        <button class="btn-share" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+window.location.href)">Share on Facebook</button>
-                        <span style="font-weight:bold; color:#666; display:flex; align-items:center;">👁️ ${Math.floor(Math.random()*200) + 50} Views</span>
-                    </div>
-                </article>`;
-
-            side.innerHTML = news.slice(1, 6).map(n => `
-                <div style="margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px; cursor:pointer;">
-                    <h4 style="margin:0; font-size:16px; line-height:1.3;">${n.title}</h4>
-                </div>`).join("");
-
-            ticker.innerHTML = `<marquee behavior="scroll" direction="left">${news.map(n => n.title.toUpperCase()).join(" ••• ")}</marquee>`;
-        }
-    }
-
-    async function publish() {
-        const key = document.getElementById("adm-key").value;
-        const title = document.getElementById("adm-title").value;
-        const text = document.getElementById("adm-text").value;
-        const img = document.getElementById("adm-img").value;
-
-        if(key !== AUTH) return alert("Access Denied: Wrong Key");
-        if(!title || !text) return alert("Please enter headline and content");
+        const res = await fetch(DB_URL);
+        const data = await res.json();
+        if(!data) return;
         
-        const newStory = {
-            title: title,
-            text: text,
-            img: img || "https://via.placeholder.com/800x450",
-            date: new Date().toISOString()
-        };
+        const allPosts = Object.values(data).reverse();
 
+        // 1. Hero News
+        const top = allPosts[0];
+        document.getElementById('hero-section').innerHTML = `
+            <span class="label">${top.category || 'Politics'} | Bureau Report</span>
+            <h1>${top.title}</h1>
+            <img src="${top.img}">
+            <p>${top.body}</p>
+        `;
+
+        // 2. News Grid (2nd to 5th post)
+        document.getElementById('grid-section').innerHTML = allPosts.slice(1, 5).map(p => `
+            <div class="grid-card">
+                <img src="${p.img}">
+                <span class="label" style="margin-top:10px;">${p.category || 'Breaking'}</span>
+                <h3>${p.title}</h3>
+            </div>
+        `).join('');
+
+        // 3. Sidebar (6th to 12th post)
+        document.getElementById('sidebar-section').innerHTML = allPosts.slice(5, 12).map(p => `
+            <div class="side-item">
+                <img src="${p.img}">
+                <h4>${p.title}</h4>
+            </div>
+        `).join('');
+
+        // 4. Ticker
+        document.getElementById('ticker-box').innerText = allPosts.map(p => p.title.toUpperCase()).join(" • ");
+    }
+
+    async function publishReport() {
+        const key = document.getElementById('auth').value;
+        const file = document.getElementById('img-upload').files[0];
+        const title = document.getElementById('title').value;
+        const body = document.getElementById('body').value;
+        const cat = document.getElementById('category').value;
+
+        if(key !== "Farah2026") return alert("Unauthorized access key!");
+        if(!file || !title || !body) return alert("Please fill all fields and select an image.");
+
+        // Step 1: Upload to ImgBB
+        const formData = new FormData();
+        formData.append("image", file);
+        
         try {
-            await fetch(DB_URL + "/news.json", {
-                method: 'POST',
-                body: JSON.stringify(newStory)
-            });
-            alert("SUCCESS: News published to the global database!");
+            const imgRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
+            const imgData = await imgRes.json();
+            const finalImgUrl = imgData.data.url;
+
+            // Step 2: Push to Firebase
+            const post = { title, body, category: cat, img: finalImgUrl, date: new Date().toISOString() };
+            await fetch(DB_URL, { method: "POST", body: JSON.stringify(post) });
+
+            alert("News published successfully to Farah Journal!");
             location.reload();
-        } catch (e) {
-            alert("Error: Could not connect to database.");
+        } catch(e) {
+            alert("Error publishing. Check your ImgBB API Key.");
         }
     }
 
     loadNews();
 </script>
+
 </body>
 </html>
