@@ -1,115 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="so">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farah Journal | Global Bureau</title>
+    <title>Farah Journal - Admin Dashboard</title>
     <style>
-        :root { --bbc-red: #bb0000; --agency-black: #121212; --bg-gray: #f6f6f6; }
-        body { font-family: 'Arial', sans-serif; margin: 0; background: #fff; color: #222; }
-        header { background: var(--bbc-red); color: #fff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 5px solid #900; }
-        .logo { font-size: 32px; font-weight: 900; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: -1px; }
-        .logo span { background: #fff; color: var(--bbc-red); padding: 0 5px; margin-right: 2px; }
-        nav { background: var(--agency-black); padding: 0 8%; display: flex; position: sticky; top: 0; z-index: 1000; overflow-x: auto; }
-        nav a { color: #fff; padding: 16px 20px; text-decoration: none; font-size: 13px; font-weight: bold; text-transform: uppercase; border-right: 1px solid #333; white-space: nowrap; }
-        .container { max-width: 1300px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2.8fr 1.2fr; gap: 40px; }
-        .hero-news img { width: 100%; height: auto; max-height: 500px; object-fit: cover; border-bottom: 4px solid var(--bbc-red); }
-        .hero-news h1 { font-size: 42px; line-height: 1.1; margin: 20px 0; font-weight: 800; }
-        .hero-news p { font-size: 19px; line-height: 1.6; color: #333; }
-        .news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 40px; border-top: 2px solid #eee; padding-top: 30px; }
-        .grid-card img { width: 100%; height: 180px; object-fit: cover; }
-        #admin-panel { display: none; position: fixed; top: 5%; left: 50%; transform: translateX(-50%); background: #fff; padding: 30px; width: 420px; box-shadow: 0 0 100px rgba(0,0,0,0.6); border-radius: 8px; z-index: 10000; border-top: 10px solid var(--bbc-red); }
-        #admin-panel input, #admin-panel textarea { width: 100%; margin-bottom: 15px; padding: 12px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        .btn-pub { background: var(--bbc-red); color: #fff; border: none; padding: 16px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 4px; }
-        footer { background: var(--agency-black); color: #777; padding: 40px 8%; text-align: center; margin-top: 60px; position: relative; }
-        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .hero-news h1 { font-size: 30px; } }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .navbar { background: #1a1a1a; color: white; padding: 15px; display: flex; gap: 20px; font-weight: bold; text-transform: uppercase; font-size: 14px; }
+        .admin-container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-top: 5px solid #d32f2f; }
+        h2 { color: #333; margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; font-size: 13px; }
+        input[type="text"], input[type="password"], textarea { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        input[type="file"] { margin-bottom: 20px; }
+        .publish-btn { background: #d32f2f; color: white; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 16px; transition: 0.3s; }
+        .publish-btn:hover { background: #b71c1c; }
+        #status { text-align: center; margin-top: 15px; font-weight: bold; padding: 10px; border-radius: 4px; display: none; }
     </style>
 </head>
 <body>
 
-<header>
-    <a href="#" class="logo"><span>F</span>ARAH JOURNAL</a>
-    <div style="font-size:11px; font-weight:bold; text-align:right;">GLOBAL NEWS BUREAU<br>STRATEGIC INTELLIGENCE</div>
-</header>
-
-<nav>
-    <a href="#">Home</a><a href="#">World News</a><a href="#">Politics</a><a href="#">Economy</a><a href="#">Policy</a>
-</nav>
-
-<div class="container">
-    <main>
-        <article id="hero-section" class="hero-news">
-            <p>Connecting to Farah Journal Global Feed...</p>
-        </article>
-        <div id="grid-section" class="news-grid"></div>
-    </main>
-    <aside>
-        <div style="background:var(--bg-gray); padding:25px; border-left: 5px solid var(--bbc-red);">
-            <h3>ABOUT THE BUREAU</h3>
-            <p style="font-size:13px; line-height:1.6; color:#555;">Farah Journal provides evidence-based analysis for global decision-makers.</p>
-        </div>
-    </aside>
+<div class="navbar">
+    <span>Home</span><span>World News</span><span>Politics</span><span>Economy</span>
 </div>
 
-<div id="admin-panel">
-    <h2 style="margin:0 0 20px 0;">Staff Dashboard</h2>
-    <input type="password" id="auth" placeholder="Enter Access Key">
-    <input type="text" id="title" placeholder="News Headline">
-    <textarea id="body" rows="6" placeholder="Report content..."></textarea>
-    <input type="file" id="img-upload" accept="image/*">
-    <button class="btn-pub" onclick="publishReport()">PUBLISH TO GLOBAL FEED</button>
-    <p onclick="document.getElementById('admin-panel').style.display='none'" style="text-align:center; color:gray; cursor:pointer; margin-top:15px;">Close Dashboard</p>
-</div>
+<div class="admin-container">
+    <h2>Ku dar War Cusub</h2>
+    
+    <label>GitHub Token (Password-kaaga):</label>
+    <input type="password" id="ghToken" placeholder="Halkan ku dheji Token-kaaga (Paste)...">
+    
+    <label>Cinwaanka Warka:</label>
+    <input type="text" id="postTitle" placeholder="Tusaale: Scholar Mohamed Farah Tahar...">
+    
+    <label>Faahfaahinta Warka:</label>
+    <textarea id="postContent" rows="6" placeholder="Hargeisa (Farah Journal) - ..."></textarea>
+    
+    <label>Sawirka Warka:</label>
+    <input type="file" id="imageFile" accept="image/*">
 
-<footer>
-    <p>&copy; 2026 FARAH JOURNAL GLOBAL BUREAU. ALL RIGHTS RESERVED.</p>
-    <span onclick="document.getElementById('admin-panel').style.display='block'" style="color:white; cursor:pointer; font-size:24px; position:absolute; bottom:10px; right:20px;">.</span>
-</footer>
+    <button class="publish-btn" onclick="startUpload()">PUBLISH TO GLOBAL FEED</button>
+    
+    <div id="status"></div>
+</div>
 
 <script>
-    const DB_URL = "https://farahjournal-f646a-default-rtdb.firebaseio.com/news.json";
-    const IMGBB_API_KEY = "7d9f8c2e1234567890abcdef12345678"; // <--- Hubi API key-gaaga
+    // 1. Iska hubi haddii Token-ku hore u kaydsanaa browser-ka
+    window.onload = () => {
+        const savedToken = localStorage.getItem('farah_token');
+        if (savedToken) {
+            document.getElementById('ghToken').value = savedToken;
+        }
+    };
 
-    async function loadNews() {
-        try {
-            const res = await fetch(DB_URL);
-            const data = await res.json();
-            if(!data) return;
-            const posts = Object.values(data).reverse();
-            document.getElementById('hero-section').innerHTML = `
-                <small style="color:red; font-weight:bold;">LATEST ANALYSIS</small>
-                <h1>${posts[0].title}</h1>
-                <img src="${posts[0].img}">
-                <p>${posts[0].body}</p>
-            `;
-            document.getElementById('grid-section').innerHTML = posts.slice(1, 5).map(p => `
-                <div class="grid-card"><img src="${p.img}"><h3>${p.title}</h3></div>
-            `).join('');
-        } catch(e) { console.log("Error loading news."); }
+    async function startUpload() {
+        const token = document.getElementById('ghToken').value;
+        const title = document.getElementById('postTitle').value;
+        const fileInput = document.getElementById('imageFile');
+        const statusDiv = document.getElementById('status');
+
+        if (!token || !title || !fileInput.files[0]) {
+            alert("Fadlan buuxi meelaha banaan!");
+            return;
+        }
+
+        // Kaydi Token-ka si uusan mar kale kuugu weydiin
+        localStorage.setItem('farah_token', token);
+
+        statusDiv.style.display = "block";
+        statusDiv.innerText = "Sawirka waa la upload-garaynayaa...";
+        statusDiv.style.color = "#333";
+        statusDiv.style.background = "#e3f2fd";
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = async () => {
+            const base64Content = reader.result.split(',')[1];
+            // Sawirka waxaa loo bixinayaa magac cusub si uusan mid kale u tirtirin
+            const fileName = `images/${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
+            const repo = "farahjournal/farahjournal.github.io"; 
+
+            try {
+                const response = await fetch(`https://api.github.com/repos/${repo}/contents/${fileName}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `New News Post: ${title}`,
+                        content: base64Content
+                    })
+                });
+
+                if (response.ok) {
+                    statusDiv.innerText = "✅ SI GUUL LEH AYAA LOO DHAYJIYAY!";
+                    statusDiv.style.color = "white";
+                    statusDiv.style.background = "green";
+                    
+                    // Nadiifi meelaha wax lagu qoro
+                    document.getElementById('postTitle').value = "";
+                    document.getElementById('postContent').value = "";
+                    document.getElementById('imageFile').value = "";
+                } else {
+                    const errData = await response.json();
+                    statusDiv.innerText = "❌ Cilad: " + (errData.message || "Token-ka ayaa khaldan");
+                    statusDiv.style.color = "white";
+                    statusDiv.style.background = "red";
+                }
+            } catch (error) {
+                statusDiv.innerText = "❌ Internet-kaaga hubi!";
+                statusDiv.style.background = "orange";
+            }
+        };
+        reader.readAsDataURL(file);
     }
-
-    async function publishReport() {
-        const key = document.getElementById('auth').value;
-        const file = document.getElementById('img-upload').files[0];
-        const title = document.getElementById('title').value;
-        const body = document.getElementById('body').value;
-
-        if(key !== "Farah2026") return alert("Unauthorized!");
-        if(!file || !title || !body) return alert("Please fill all fields!");
-
-        const formData = new FormData();
-        formData.append("image", file);
-
-        try {
-            const imgRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
-            const imgData = await imgRes.json();
-            const post = { title, body, img: imgData.data.url, date: new Date().toISOString() };
-            await fetch(DB_URL, { method: "POST", body: JSON.stringify(post) });
-            alert("Report Published Successfully!");
-            location.reload();
-        } catch(e) { alert("Error uploading. Check API Key."); }
-    }
-    loadNews();
 </script>
+
 </body>
 </html>
