@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farah Journal - Global News & Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #bb1919; /* BBC Red style */
+            --dark-color: #1a1a1a;
+            --light-bg: #f6f6f6;
+        }
+
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; background: var(--light-bg); color: #333; }
+
+        /* News Ticker */
+        .ticker-wrapper { background: #222; color: white; padding: 12px 0; overflow: hidden; white-space: nowrap; border-bottom: 2px solid var(--primary-color); }
+        .ticker-text { display: inline-block; animation: ticker 40s linear infinite; font-weight: bold; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* Header */
+        header { background: var(--primary-color); color: white; padding: 25px 0; text-align: center; border-bottom: 4px solid var(--dark-color); }
+        .logo { font-size: 45px; font-weight: 900; letter-spacing: -2px; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+
+        /* Navigation */
+        nav { background: var(--dark-color); color: white; display: flex; justify-content: center; padding: 12px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        nav a { color: white; text-decoration: none; margin: 0 18px; font-weight: bold; font-size: 14px; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover { color: #ff9999; }
+
+        /* Main Content Layout */
+        .main-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 35px; }
+
+        /* News Cards */
+        .news-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
+        .featured-post { background: white; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .featured-post:hover { transform: translateY(-5px); }
+        .featured-post img { width: 100%; height: 420px; object-fit: cover; border-bottom: 3px solid var(--primary-color); }
+        .post-content { padding: 25px; }
+        .post-content h2 { font-size: 30px; margin: 0 0 12px 0; color: var(--dark-color); line-height: 1.2; }
+        .post-content .date { font-size: 12px; color: var(--primary-color); font-weight: bold; margin-bottom: 10px; display: block; }
+        .post-content p { color: #444; line-height: 1.7; font-size: 16px; }
+
+        /* Sidebar */
+        .side-bar { background: #fff; padding: 25px; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); height: fit-content; }
+        .side-bar h3 { border-bottom: 3px solid var(--primary-color); padding-bottom: 12px; margin-bottom: 20px; text-transform: uppercase; font-size: 18px; }
+        .contact-info p { font-size: 14px; margin: 12px 0; display: flex; align-items: center; gap: 10px; color: #555; }
+        .contact-info i { color: var(--primary-color); width: 20px; }
+
+        /* Footer */
+        footer { background: var(--dark-color); color: #bbb; padding: 60px 0 20px 0; margin-top: 60px; }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; padding: 0 20px; }
+        .footer-section h4 { color: white; margin-bottom: 25px; border-bottom: 1px solid #444; padding-bottom: 12px; text-transform: uppercase; font-size: 16px; }
+        .footer-section p, .footer-section a { font-size: 14px; color: #999; text-decoration: none; display: block; margin-bottom: 12px; line-height: 1.6; }
+        .footer-section a:hover { color: white; }
+        
+        .footer-bottom { text-align: center; margin-top: 50px; padding-top: 25px; border-top: 1px solid #333; font-size: 13px; color: #666; position: relative; }
+        
+        /* Secret Admin Link */
+        .secret-dot { color: #222; text-decoration: none; font-size: 14px; position: absolute; right: 20px; bottom: 20px; opacity: 0.5; }
+        .secret-dot:hover { opacity: 1; color: #444; }
+
+        @media (max-width: 850px) { 
+            .main-container { grid-template-columns: 1fr; } 
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .featured-post img { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ticker-wrapper">
+        <div class="ticker-text" id="ticker-content">
+            BREAKING: Welcome to Farah Journal - Your Independent Source for Global News and Strategic Analysis ... Stay tuned for latest updates from Hargeisa and around the world ... 
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">FARAH JOURNAL</div>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#">World News</a>
+        <a href="#">Politics</a>
+        <a href="#">Economy</a>
+        <a href="#">Analysis</a>
+    </nav>
+
+    <div class="main-container">
+        <div class="news-grid" id="news-feed">
+            </div>
+
+        <aside class="side-bar">
+            <h3>About Farah Journal</h3>
+            <p style="font-size: 14px; line-height: 1.6; color: #666;">
+                Farah Journal provides deep analysis on global politics and economic trends, focusing on the Horn of Africa.
+            </p>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+            <h3>Contact Details</h3>
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> farahjournal2@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Hargeisa, Somaliland</p>
+                <p><i class="fas fa-globe"></i> Global Coverage</p>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Mission</h4>
+                <p>Our mission is to deliver accurate, timely, and independent news coverage to our global audience, ensuring integrity in journalism.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Editorial Team</a>
+                <a href="#">Archive</a>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div style="font-size: 24px; display: flex; gap: 15px;">
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <p style="margin-top: 20px;">Subscribe to our newsletter for daily updates.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Farah Journal. All Rights Reserved. 
+            <a href="admin.html" class="secret-dot">.</a>
+        </div>
+    </footer>
+
+    <script>
+        async function loadNews() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) throw new Error('No data');
+                
+                const posts = await response.json();
+                const feed = document.getElementById('news-feed');
+                const ticker = document.getElementById('ticker-content');
+                
+                // Update ticker with the latest 3 titles
+                const latestTitles = posts.slice(-3).map(p => p.title).join(" • ");
+                if(latestTitles) {
+                    ticker.innerText = "LATEST: " + latestTitles + " • " + ticker.innerText;
+                }
+
+                // Show posts: Newest first
+                feed.innerHTML = ""; // Clear loader
+                posts.reverse().forEach(post => {
+                    const postHTML = `
+                        <article class="featured-post">
+                            <img src="${post.image}" alt="${post.title}">
+                            <div class="post-content">
+                                <span class="date"><i class="far fa-calendar-alt"></i> ${post.date || '2026'}</span>
+                                <h2>${post.title}</h2>
+                                <p>${post.content}</p>
+                            </div>
+                        </article>
+                    `;
+                    feed.innerHTML += postHTML;
+                });
+            } catch (e) {
+                document.getElementById('news-feed').innerHTML = `
+                    <div class="featured-post">
+                        <div class="post-content">
+                            <h2>Welcome to Farah Journal</h2>
+                            <p>No news stories are currently available. Please check back later or visit the admin panel to publish content.</p>
+                        </div>
+                    </div>`;
+            }
+        }
+        
+        // Load news on page start
+        window.onload = loadNews;
+    </script>
+</body>
+</html>
